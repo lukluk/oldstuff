@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Music Player</title>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/music.css" rel="stylesheet">
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+
+
+
+    <script type="text/javascript" src="js/jquery.total-storage.min.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript">
+    var QueryString = function() {
+        // This function is anonymous, is executed immediately and 
+        // the return value is assigned to QueryString!
+        var query_string = {};
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            // If first entry with this name
+            if (typeof query_string[pair[0]] === "undefined") {
+                query_string[pair[0]] = pair[1];
+                // If second entry with this name
+            } else if (typeof query_string[pair[0]] === "string") {
+                var arr = [query_string[pair[0]], pair[1]];
+                query_string[pair[0]] = arr;
+                // If third or later entry with this name
+            } else {
+                query_string[pair[0]].push(pair[1]);
+            }
+        }
+        return query_string;
+    }();
+    </script>
+    <style>
+    .fullwidth {
+        width: 100%;
+    }
+    .page {
+        display: none;
+        padding-top:10px;
+    }
+    #jquery_jplayer_N {
+        display: none !important;
+    }
+    .btn-group, .dropdown-menu, .dropdown-toggle {
+        width: 100% !important;
+    }
+    .rightmid {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+    }
+    #result {
+        list-style: none;
+        padding: 0px;
+    }
+    #result li {
+        padding-top: 5px;
+    }
+    #result button {
+        margin-right: 5px;
+    }
+    .nopadding {
+        padding: 0px !important;
+    }
+    .jp-playlist-item-remove {
+        display: block !important;
+    }
+    .searchbox {
+        display: none;
+    }
+    @media (min-width: 500px) {
+        .searchbox {
+            display: block !important;
+        }
+    }
+    </style>
+    <script type="text/javascript" src="js/index.js"></script>
+
+
+</head>
+
+<body>
+    <div id="splash">
+        <div style="position:absolute;left:50%;margin-left:-128px;top:50%;margin-top:-128px;">
+            <img src="img/logo.png">
+        </div>
+    </div>
+    <div class="page" id="addnew">
+        <div class="row" style="position:fixed;left:0px;top:0px;">
+            <div class="col-md-12">
+                <div style="margin-top:2px">
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="search" placeholder="Search" name="srch-term">
+                        <div class="input-group-btn">
+                            <button class="btn btn-success"  id="searchbtn" type="submit"><i style="left:25%;" class="glyphicon glyphicon-search" style="color:#fff"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12" id="loading" style="display:none">
+                <center>Searching..</center>
+            </div>
+        </div>
+
+        <div class="">
+            <div>
+                <ul id="result" style="margin-top:30px;padding-bottom:30px;">
+
+                </ul>
+            </div>
+        </div>
+        <div class="row" style="position:fixed;left:0px;bottom:0px;width:100%">
+            <div class="col-md-4 col-sm-4 hidden-xs">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                
+            </div>
+            <div class="col-md-4 col-sm-4 hidden-xs">
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="page" id="home">
+        <div class="row" style="position:fixed;left:15px;top:0px;width:100%;z-index:1000;">
+            <div class="col-md-4 col-sm-4 col-xs-10 nopadding">
+                <div style="margin-top:2px">
+                    <div class="btn-group ">
+                        <button type="button" class="btn btn-default dropdown-toggle" id="currentplaylist" data-toggle="dropdown">
+                            Select Playlist
+                            <span class="caret rightmid"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" id="listplaylist">
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 hidden-xs nopadding">
+                <div style="margin-top:2px">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" id="playsearch" name="playsearch">
+                        <div class="input-group-btn">
+                            <button class="btn btn-warning" id="playsearchbtn" type="submit"><i style="left:25%" class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden-lg hidden-md hidden-sm col-xs-2 nopadding">
+                <div style="margin-top:2px">
+                    <button onclick='app.show("addnew");$("#next").hide();' class="btn btn-success" style="width:100%">Add</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Looks best in Chrome for now. 
+
+Can't seem to style the progress bar on firefox properly yet. 
+
+Cick play to animate the progress bar.
+-->
+
+        <div class="music-player">
+            <div id="thumb"></div>
+            <div class="content" >
+                <div id="playlist">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    
+    <div class="fixeddown">
+        <ul class="controls">
+            <li><i class="glyphicon glyphicon-random" id="shuffle" ddata-tooltip="shuffle"></i>
+            </li>
+            <li><i class="glyphicon glyphicon-retweet" id="repeat" ddata-tooltip="repeat"></i>
+            </li>
+        </ul>
+        <progress value="0" max="100">
+            <div class="tracker active"></div>
+        </progress>
+        <span id="now" style="margin-left: 20px;">0:00</span>
+        <span></span>
+        <span class=""></span>
+        <span class="" id="duration" style="float:right;margin-right: 20px;">0:00</span>
+        <ul class="play-controls">
+            
+            <li><i class="glyphicon glyphicon-step-backward"></i>
+            </li>
+            <li><i class="glyphicon glyphicon-play" id="play"></i>
+            </li>
+            <li><i class="glyphicon glyphicon-step-forward"></i>
+            </li>
+            
+        </ul>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+    var currentpls = '';
+    appx.initialize(function() {    
+        document.addEventListener("backbutton", function(e){
+            if(page=='addnew'){
+                app.show('home');app.loadPlaylist(currentpls);
+            }else{
+
+            }
+            
+            
+            
+        }, false);
+        $(document).ready(function() {
+            $('#splash').hide();
+            app.init();
+            //alert('new');
+
+
+
+        });
+        setTimeout(function() {
+            currentpls = $.totalStorage('playlist');
+            if (currentpls) {
+
+                app.loadPlaylist(currentpls);
+            } else {
+
+            }
+            if (app.listPlaylist() <= 0) {
+                app._createPlaylist('Default Playlist');
+                app.loadPlaylist('Default Playlist');
+
+            }
+        }, 1000);
+    });
+    </script>
+</body>
+
+</html>

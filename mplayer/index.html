@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lux</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+    <style>
+    .fullwidth {
+        width: 100%;
+    }
+    .page {
+        display: none;
+    }
+    #jquery_jplayer_N {
+        display: none !important;
+    }
+    .btn-group, .dropdown-menu, .dropdown-toggle {
+        width: 100% !important;
+    }
+    .rightmid {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+    }
+    #result {
+        list-style: none;
+        padding: 0px;
+    }
+    #result li {
+        padding-top: 5px;
+    }
+    #result button {
+        margin-right: 5px;
+    }
+    .nopadding {
+        padding: 0px !important;
+    }
+    .jp-playlist-item-remove {
+        display: block !important;
+    }
+    .myaction {
+        margin: 0 0 0 .8rem;
+        height: 4rem !important;
+    }
+    </style>
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/touch/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/touch/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
+    <link rel="shortcut icon" sizes="196x196" href="img/touch/touch-icon-196x196.png">
+    <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#222222">
+
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/" >
+    -->
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <!--
+    <meta name="mobile-web-app-capable" content="yes">
+    -->
+
+    <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    -->
+
+    <!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
+    <!--
+    <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+    -->
+
+    <link rel="stylesheet" href="css/main.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body id="test_el">
+    <div id="splash">
+        <div style="position:absolute;left:50%;margin-left:-128px;top:50%;margin-top:-128px;">
+            <img src="img/logo.png">
+        </div>
+    </div>
+    <div class="page" id="list">
+        <header class="action-bar">
+            <div class="container">
+                <div class="action-bar__logo">
+                    <a href="#" onclick="app.show('home');">
+                        <span class="smallIcon">
+                            <img src="img/ic_action_previous_item.png" alt="">
+                        </span>
+                        <span class="appIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <path d="M9.776 4.366v18.987c-1.034-.216-2.237-.134-3.43.307-2.683.997-3.63 3.424-2.918 5.418.71 1.995 2.811 2.802 5.494 1.805 2.278-.846 3.771-2.722 3.733-4.491v-15.685l11.362-2.603v12.048c-1.034-.216-2.237-.134-3.43.307-2.685.997-3.632 3.424-2.92 5.418.712 1.995 2.811 2.802 5.496 1.805 2.28-.846 3.77-2.722 3.734-4.491v-22.502l-17.12 3.678z"></path>
+                            </svg>
+                        </span>
+                        <span class="title">
+                            Nirvana Forever Grunge
+                        </span>
+                    </a>
+                </div>
+
+
+
+
+                <div class="action-bar__controls">
+
+                    <div class="action-bar__overflow dropdown">
+                        <button data-toggle="dropdown">
+                            <img src="img/ic_action_overflow.png">
+                        </button>
+
+                        <ul class="dropdown-menu">
+
+
+
+                            <li><a href="#" onclick="app.show('credit');">Credit</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="action-bar__search">
+                        <div class="form-group">
+                            <div class="form-group--action">
+                                <button class="controlSearch">
+                                    <img src="img/ic_action_search.png">
+                                </button>
+                            </div>
+                            <div class="form-group--input">
+                                <input type="search" class="form-control searchme" placeholder="Search music" autocomplete="off">
+                                <button class="clearInput">
+                                    <img src="img/ic_action_remove.png">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </header>
+
+
+        <div class="main" id="main" role="main">
+            <div class="container">
+                <!-- <div style="padding:.8rem 1.6rem;">
+            <div class="form-group">
+                <div class="form-group--input">
+                    <input type="search" class="form-control" placeholder="Search" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group--input">
+                    <input type="search" class="form-control" placeholder="Search" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group--input">
+                    <input type="search" class="form-control" placeholder="Search" autocomplete="off">
+                </div>
+            </div>
+        </div> -->
+
+
+                <div class="form">
+                    <div class="form-group">
+                        <div class="form-group--input">
+                            <input type="search" class="form-control searchme" id="searchme" placeholder="Search music" autocomplete="off">
+                        </div>
+
+                        <div class="myaction">
+                            <button class="btn" onclick="app.search($('#searchme').val());$('#searchme').val('');">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <section>
+
+                    <header class="section__header">
+
+                    </header>
+
+
+                    <ul class="content" id="playlist">
+
+
+                    </ul>
+
+                </section>
+
+
+            </div>
+        </div>
+
+        <footer class="site-footer">
+
+
+        </footer>
+
+    </div>
+    <div class="page" id="addnew">
+        <header class="action-bar">
+            <div class="container">
+
+
+                <div class="action-bar__logo">
+                    <a href="#" onclick="app.loadPlaylist(currentpls);">
+                        <span class="smallIcon">
+                            <img src="img/ic_action_previous_item.png" alt="">
+                        </span>
+                        <span class="appIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <path d="M9.776 4.366v18.987c-1.034-.216-2.237-.134-3.43.307-2.683.997-3.63 3.424-2.918 5.418.71 1.995 2.811 2.802 5.494 1.805 2.278-.846 3.771-2.722 3.733-4.491v-15.685l11.362-2.603v12.048c-1.034-.216-2.237-.134-3.43.307-2.685.997-3.632 3.424-2.92 5.418.712 1.995 2.811 2.802 5.496 1.805 2.28-.846 3.77-2.722 3.734-4.491v-22.502l-17.12 3.678z"></path>
+                            </svg>
+                        </span>
+                        <!-- FUCKYOU BABAY -->
+                        <span class="">
+                            Search
+                            <span id="search"></span>
+                        </span>
+                    </a>
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </header>
+
+
+        <div class="main" id="main" role="main">
+            <div class="container">
+
+
+
+                <section>
+
+                    <header class="section__header">
+
+                    </header>
+
+
+                    <ul class="content" id="result">
+
+
+                    </ul>
+
+                </section>
+
+
+            </div>
+        </div>
+
+        <footer class="site-footer">
+
+
+        </footer>
+
+
+    </div>
+    <div class="page" id="home">
+        <header class="action-bar">
+            <div class="container">
+                <div class="action-bar__logo">
+                    <a href="#">
+                        <span class="appIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <path d="M9.776 4.366v18.987c-1.034-.216-2.237-.134-3.43.307-2.683.997-3.63 3.424-2.918 5.418.71 1.995 2.811 2.802 5.494 1.805 2.278-.846 3.771-2.722 3.733-4.491v-15.685l11.362-2.603v12.048c-1.034-.216-2.237-.134-3.43.307-2.685.997-3.632 3.424-2.92 5.418.712 1.995 2.811 2.802 5.496 1.805 2.28-.846 3.77-2.722 3.734-4.491v-22.502l-17.12 3.678z"></path>
+                            </svg>
+                        </span>
+                        <span class="title">Playlist</span>
+                    </a>
+                </div>
+
+
+                <div class="action-bar__controls">
+
+                    <div class="action-bar__overflow dropdown">
+                        <button data-toggle="dropdown">
+                            <img src="img/ic_action_overflow.png">
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">Create playlist</a>
+                            </li>
+
+
+                            <li><a href="#" onclick="app.show('credit');">Credit</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--  <div class="action-bar__search">
+               <div class="form-group">
+                    <div class="form-group--action">
+                        <button class="controlSearch"><img src="img/ic_action_search.png"></button>
+                    </div>
+                    <div class="form-group--input">
+                        <input type="search" class="form-control searchme" placeholder="Search music" autocomplete="off">
+                        <button class="clearInput"><img src="img/ic_action_remove.png"></button>
+                    </div>
+                </div>
+            </div> -->
+
+
+                </div>
+
+            </div>
+        </header>
+
+        <div class="main" id="main" role="main">
+            <div class="container">
+
+
+                <div class="form">
+                    <div class="form-group">
+                        <div class="form-group--input">
+                            <input type="text" class="form-control" id="ply" placeholder="Create new playlist" autocomplete="off">
+                        </div>
+
+                        <div class="myaction">
+                            <button class="btn" onclick="app._createPlaylist($('#ply').val());$('#ply').val('');">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="content" id="listplaylist">
+
+
+                </ul>
+
+
+            </div>
+        </div>
+
+        <footer class="site-footer">
+
+
+        </footer>
+    </div>
+    <div class="page" id="player">
+        <main>
+        <progress value="0" max="100" style="display:none;"></progress>
+            <aside>
+                <img id="thumb" src="http://userserve-ak.last.fm/serve/_/95660739/Icona+Pop.png" />
+                <header>
+                    
+                    <a href="#repeat-all"></a>
+                    <a href="#shuffle"></a>
+                    <a href="#repeat-one"></a>
+                </header>
+                <footer>
+                    <strong>Icona Pop</strong>
+                    <label>Still don't know</label>
+                </footer>
+            </aside>
+            <div class="controls">
+                <div class="volume">
+                    <em id="pro" style="width: 2%"></em>
+                    
+                </div>
+                <a href="#share"></a>
+                <a href="#prev"></a>
+                <a href="#play"></a>
+                <a href="#next"></a>
+                <a href="#love"></a>
+                <span class="progress"></span>
+            </div>
+        </main>
+    </div>
+
+
+
+
+    <!-- sample modalbox -->
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Add New Playlist</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-group--input">
+                            <input type="search" class="form-control" id="newply" placeholder="Search" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="" onclick="app._createPlaylist($('#newply').val());$('#newply').val('');$('#myModal').modal('hide');">Save changes</button>
+                    <button type="button" class="" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/vendor/jquery-2.1.1.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/local.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script> 
+    <script type="text/javascript" src="js/jquery.total-storage.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript">
+    var QueryString = function() {
+        // This function is anonymous, is executed immediately and 
+        // the return value is assigned to QueryString!
+        var query_string = {};
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            // If first entry with this name
+            if (typeof query_string[pair[0]] === "undefined") {
+                query_string[pair[0]] = pair[1];
+                // If second entry with this name
+            } else if (typeof query_string[pair[0]] === "string") {
+                var arr = [query_string[pair[0]], pair[1]];
+                query_string[pair[0]] = arr;
+                // If third or later entry with this name
+            } else {
+                query_string[pair[0]].push(pair[1]);
+            }
+        }
+        return query_string;
+    }();
+    </script>
+    <script type="text/javascript">
+    var currentpls = '';
+    appx.initialize(function() {
+        document.addEventListener("backbutton", function(e) {
+            if (page == 'addnew') {
+                app.loadPlaylist(currentpls);
+            } else if (page == 'list') {
+                app.show('home');
+            } else {
+
+            }
+
+
+
+
+        }, false);
+        $(document).ready(function() {
+            $('#splash').hide();
+            app.init();
+            //alert('new');
+
+
+
+        });
+        setTimeout(function() {
+            currentpls = $.totalStorage('playlist');
+            if (app.listPlaylist() <= 0) {
+                app._createPlaylist('Nice Music');
+
+
+            }
+        }, 1000);
+        $(function() {
+            $('main > .controls > .volume > a').draggable({
+                axis: 'x',
+                drag: function() {
+                    var p = $(this).position().left / $(this).parent().width();
+
+                    
+
+                    if (p < 0) return $(this).css('left', 0), !1;
+                    else if (p > 1) return $(this).css('left', $(this).parent().width()), !1;
+
+                    $('main > .controls > .volume > em').css('width', (p * 100) + '%');
+                }
+            });
+        });
+    });
+    
+    </script>
+</body>
+
+</html>
